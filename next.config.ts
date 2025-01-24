@@ -19,3 +19,4 @@ const config: NextConfig = {
 }
 
 export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(config) : config
+
