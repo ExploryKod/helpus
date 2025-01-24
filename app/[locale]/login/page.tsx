@@ -31,28 +31,42 @@ export default function Login() {
   }
 
   return (
-    <PageLayout title={t('title')}>
-      <form
-        action="/api/auth/callback/credentials"
-        method="post"
-        onSubmit={onSubmit}
-        style={{display: 'flex', flexDirection: 'column', gap: 10, width: 300}}
-      >
-        <label style={{display: 'flex'}}>
-          <span style={{display: 'inline-block', flexGrow: 1, minWidth: 100}}>
-            {t('username')}
-          </span>
-          <input name="username" type="text" />
-        </label>
-        <label style={{display: 'flex'}}>
-          <span style={{display: 'inline-block', flexGrow: 1, minWidth: 100}}>
-            {t('password')}
-          </span>
-          <input name="password" type="password" />
-        </label>
-        {error && <p>{t('error', {error})}</p>}
-        <button type="submit">{t('submit')}</button>
-      </form>
-    </PageLayout>
+      <PageLayout title={t('title')}>
+        <form
+            action="/api/auth/callback/credentials"
+            method="post"
+            onSubmit={onSubmit}
+            className="flex flex-col gap-4 w-80 mx-auto bg-white p-6 rounded-lg shadow-md"
+        >
+          <label className="flex items-center">
+      <span className="flex-grow min-w-[100px] text-gray-700 font-medium">
+        {t('username')}
+      </span>
+            <input
+                name="username"
+                type="text"
+                className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </label>
+          <label className="flex items-center">
+      <span className="flex-grow min-w-[100px] text-gray-700 font-medium">
+        {t('password')}
+      </span>
+            <input
+                name="password"
+                type="password"
+                className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </label>
+          {error && <p className="text-red-500 text-sm">{t('error', { error })}</p>}
+          <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+          >
+            {t('submit')}
+          </button>
+        </form>
+      </PageLayout>
+
   );
 }
