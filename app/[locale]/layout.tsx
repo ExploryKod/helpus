@@ -1,4 +1,5 @@
 import {notFound} from 'next/navigation';
+import {getLangDir} from 'rtl-detect';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {ReactNode} from 'react';
@@ -9,19 +10,23 @@ type Props = {
   params: {locale: string};
 };
 
+
+
 export default async function LocaleLayout({
   children,
   params: {locale}
 }: Props) {
+
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as string)) {
     notFound();
   }
 
+  const direction = getLangDir(locale);
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={direction} >
       <head>
         <title>next-intl & next-auth</title>
       </head>
