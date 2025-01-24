@@ -8,7 +8,11 @@ export default function Secret() {
 
   return (
     <PageLayout title={t('title')}>
-      <p>{t('description')}</p>
+        <div className="flex flex-col items-center justify-center text-center">
+            <div className="bg-primary-100 p-5 dark:bg-primary-900 mb-4 flex items-center justify-center rounded-full p-1.5 text-blue-700">
+                <p className={"text-gray-500 dark:text-gray-400"}>{t('description')}</p>
+            </div>
+        </div>
     </PageLayout>
   );
 }
