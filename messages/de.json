@@ -15,7 +15,8 @@
     "username": "Benutzername",
     "password": "Passwort",
     "submit": "Anmelden",
-    "error": "{error, select, CredentialsSignin {Ungültiger Benutzername oder Passwort} other {Unbekannter Fehler}}"
+    "error": "{error, select, CredentialsSignin {Ungültiger Benutzername oder Passwort} other {Unbekannter Fehler}}",
+    "back" : "Geh zurück"
   },
   "LocaleSwitcher": {
     "switchLocale": "Zu {locale, select, de {Deutsch} en {Englisch} other {Unbekannt}} wechseln"

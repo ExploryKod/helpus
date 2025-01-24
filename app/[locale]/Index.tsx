@@ -22,21 +22,22 @@ export default function Index({session}: Props) {
   return (
     <PageLayout title={t('title')}>
       {session ? (
-        <>
-          <p>{t('loggedIn', {username: session.user?.name})}</p>
-          <p>
-            <Link  className="mx-auto bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400" href={locale + '/secret'}>{t('secret')}</Link>
-          </p>
+        <div className={"flex flex-col items-center"}>
+          <div className={"flex flex-col gap-4"}>
+          <p className={"text-center text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedIn', {username: session.user?.name})}</p>
+          <Link  className="mx-auto text-gray-800 py-2 px-4 rounded-lg hover:text-gray-500 underline"
+                 href={locale + '/secret'}>{t('secret')}</Link>
           <button className={"mx-auto bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"} onClick={onLogoutClick} type="button">
             {t('logout')}
           </button>
-        </>
+          </div>
+        </div>
       ) : (
         <>
             <section className="bg-white dark:bg-gray-900">
               <div className={"mx-auto flex flex-col gap-3 items-center justify-center"}>
                 <div className={"mx-auto p-3 shadow-lg rounded-lg flex flex-col gap-3 items-center justify-center"}>
-                  <p className={"my-2 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400\""}>{t('loggedOut')}</p>
+                  <p className={"my-2 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedOut')}</p>
                   <Link className="mb-2 text-green-500 md:text-lg lg:mb-8 lg:text-xl " href={locale + '/login'}>{t('login')}</Link>
                 </div>
               </div>

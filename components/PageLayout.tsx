@@ -1,5 +1,7 @@
 import {ReactNode} from 'react';
 import LocaleSwitcher from './LocaleSwitcher';
+import Link from "next/link";
+import {useLocale, useTranslations} from "next-intl";
 
 type Props = {
   children?: ReactNode;
@@ -7,6 +9,8 @@ type Props = {
 };
 
 export default function PageLayout({children, title}: Props) {
+    const t = useTranslations('Login');
+    const locale = useLocale();
   return (
     <>
       <div
@@ -19,6 +23,9 @@ export default function PageLayout({children, title}: Props) {
           <div className={"flex flex-col gap-4 my-5 place-content-center"}>
             <LocaleSwitcher />
           </div>
+            <div className={"flex flex-col gap-4 my-5 place-content-center"}>
+                <Link className="mx-auto mb-2 text-gray-800 font-bold hover:text-gray-600 text-lg" href={locale + '/'}>{t('back')}</Link>
+            </div>
         </div>
       </div>
     </>
