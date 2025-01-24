@@ -1,7 +1,8 @@
-import {ReactNode} from 'react';
-import LocaleSwitcher from './LocaleSwitcher';
 import Link from "next/link";
 import {useLocale, useTranslations} from "next-intl";
+import {ReactNode} from 'react';
+import SelectLanguage from "@/components/intl/SelectLanguage";
+import LocaleSwitcher from './intl/LocaleSwitcher';
 
 type Props = {
   children?: ReactNode;
@@ -23,6 +24,9 @@ export default function PageLayout({children, title}: Props) {
           <div className={"flex flex-col gap-4 my-5 place-content-center"}>
             <LocaleSwitcher />
           </div>
+            <div className={"flex flex-col gap-4 my-5 place-content-center"}>
+                <SelectLanguage />
+            </div>
             <div className={"flex flex-col gap-4 my-5 place-content-center"}>
                 <Link className="mx-auto mb-2 text-gray-800 font-bold hover:text-gray-600 text-lg" href={locale + '/'}>{t('back')}</Link>
             </div>
