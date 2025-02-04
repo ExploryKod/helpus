@@ -4,6 +4,8 @@ import {getMessages} from 'next-intl/server';
 import {ReactNode} from 'react';
 import {getLangDir} from 'rtl-detect';
 import {routing} from '@/i18n/routing';
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth"
 
 type Props = {
   children: ReactNode;
@@ -32,15 +34,17 @@ export default async function LocaleLayout(props: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={direction} >
-      <head>
-        <title>next-intl & next-auth</title>
-      </head>
-      <body>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang={locale} dir={direction} >
+        <head>
+          <title>next-intl & next-auth</title>
+        </head>
+        <body>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -1,4 +1,3 @@
-//import {getServerSession} from 'next-auth';
 import { auth } from '@/auth';
 import Index from './Index';
 

@@ -33,7 +33,7 @@ export default function Login() {
   return (
       <PageLayout title={t('title')}>
         <form
-            action="/api/auth/callback/credentials"
+            action="/app/[locale]/api/auth/callback/credentials"
             method="post"
             onSubmit={onSubmit}
             className="flex flex-col gap-4 w-80 mx-auto bg-white p-6 rounded-lg shadow-md"

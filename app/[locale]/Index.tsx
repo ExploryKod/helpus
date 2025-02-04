@@ -5,12 +5,13 @@ import {useLocale, useTranslations} from 'next-intl';
 import PageLayout from '@/components/PageLayout';
 import { Button } from "components/Button/Button"
 import { LP_GRID_ITEMS } from "lp-items"
+import { Session } from "next-auth"
 
-const props = {
-  session : Session
-}
+type Props = {
+  session: Session | null;
+};
 
-export default function Index(session: any) {
+export default function Index(session: Props) {
   const t = useTranslations('Index');
   const locale = useLocale();
   function onLogoutClick() {
@@ -22,7 +23,7 @@ export default function Index(session: any) {
       {session ? (
         <div className={"flex flex-col items-center"}>
           <div className={"flex flex-col gap-4"}>
-          <p className={"text-center text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedIn', {username: session.data?.user?.name})}</p>
+          <p className={"text-center text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedIn', {username: 'anonyme'})}</p>
           <Link  className="mx-auto text-gray-800 py-2 px-4 rounded-lg hover:text-gray-500 underline"
                  href={locale + '/secret'}>{t('secret')}</Link>
           <button className={"mx-auto bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"} onClick={onLogoutClick} type="button">

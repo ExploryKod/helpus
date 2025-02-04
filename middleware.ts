@@ -1,12 +1,12 @@
 // https://medium.com/@yokohailemariam/conquering-auth-v5-and-next-intl-middleware-in-next-js-14-app-55f59d40afb4
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server"
 import createIntlMiddleware from "next-intl/middleware";
 import { auth } from "@/auth";
 
 const locales = ["en", "de"]
 
-const apiAuthPrefix: string = "/api";
-const authRoutes = ["/api/auth"];
+const apiAuthPrefix: string = "/api/auth";
+const authRoutes = ["/api/auth", "/en/api/auth", "de/api/auth"];
 const DEFAULT_LOGIN_REDIRECT: string = "/login";
 const publicRoutes: Array<string> = [];
 const intlMiddleware = createIntlMiddleware({
@@ -14,7 +14,7 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: "en",
 });
 
-const authMiddleware = auth((req) => {
+const authMiddleware = auth((req: any) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
@@ -34,7 +34,7 @@ const authMiddleware = auth((req) => {
 
   if (!isLoggedIn && !isPublicRoute) {
     // Redirect unauthorized users to login for non-public routes
-    return Response.redirect(new URL("/", nextUrl));
+    return Response.redirect(new URL("/login", nextUrl));
   }
 
   if (isLoggedIn) {
@@ -42,13 +42,18 @@ const authMiddleware = auth((req) => {
   }
 });
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   // const publicPathnameRegex = RegExp(
   //   `^(/(<span class="math-inline">\{locales\.join\("\|"\)\}\)\)?\(</span>{publicPages
   //     .flatMap((p) => (p === "/" ? ["", "/"] : p))
   //     .join("|")})/?$`,
   //   "i"
   // );
+
+  // const session = await auth();
+  // if (!session?.user) {
+  //   return NextResponse.redirect('http://localhost:3000/en/login');
+  // }
 
   const excludePattern = "^(/(" + locales.join("|") + "))?/admin/?.*?$";
   const publicPathnameRegex = RegExp(excludePattern, "i");
@@ -67,3 +72,21 @@ export default function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
+
+
+// import NextAuth from "next-auth";
+// import { authConfig } from "./auth.config";
+// import { NextRequest, NextResponse } from "next/server";
+//
+//
+// const { auth } = NextAuth(authConfig);
+// export async function middleware(req: NextRequest) {
+//   const session = await auth();
+//   if (!session?.user) {
+//     return NextResponse.redirect('http://localhost:3000/login');
+//   }
+// }
+//
+// export const config = {
+//   matcher: ['/api/attendance/:id*', '/attendance/:id*'],
+// }
