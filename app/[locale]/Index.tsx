@@ -1,22 +1,20 @@
 'use client'
 import Link from 'next/link';
-import {Session} from 'next-auth';
-import {signOut} from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import {useLocale, useTranslations} from 'next-intl';
 import PageLayout from '@/components/PageLayout';
 import { Button } from "components/Button/Button"
 import { LP_GRID_ITEMS } from "lp-items"
 
-type Props = {
-  session: Session | null;
-};
+const props = {
+  session : Session
+}
 
-export default function Index({session}: Props) {
+export default function Index(session: any) {
   const t = useTranslations('Index');
   const locale = useLocale();
-
   function onLogoutClick() {
-    signOut();
+    signOut().then(r => console.log(r));
   }
 
   return (
@@ -24,7 +22,7 @@ export default function Index({session}: Props) {
       {session ? (
         <div className={"flex flex-col items-center"}>
           <div className={"flex flex-col gap-4"}>
-          <p className={"text-center text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedIn', {username: session.user?.name})}</p>
+          <p className={"text-center text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400"}>{t('loggedIn', {username: session.data?.user?.name})}</p>
           <Link  className="mx-auto text-gray-800 py-2 px-4 rounded-lg hover:text-gray-500 underline"
                  href={locale + '/secret'}>{t('secret')}</Link>
           <button className={"mx-auto bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"} onClick={onLogoutClick} type="button">

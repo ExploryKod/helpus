@@ -1,8 +1,8 @@
 import {notFound} from 'next/navigation';
-import {getLangDir} from 'rtl-detect';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {ReactNode} from 'react';
+import {getLangDir} from 'rtl-detect';
 import {routing} from '@/i18n/routing';
 
 type Props = {

@@ -1,26 +1,11 @@
-import {AuthOptions} from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from "next-auth"
+import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 
-const auth: AuthOptions = {
-    providers: [
-        CredentialsProvider({
-            name: 'Credentials',
-            credentials: {
-                username: {type: 'text'},
-                password: {type: 'password'}
-            },
-            authorize(credentials) {
-                if (
-                    credentials?.username === 'admin' &&
-                    credentials.password === 'admin'
-                ) {
-                    return {id: '1', name: 'admin'};
-                }
+export const { auth, handlers, signIn, signOut } = NextAuth({
+    providers: [GitHub, Google],
+})
 
-                return null;
-            }
-        })
-    ]
-};
 
-export default auth;
+
+
